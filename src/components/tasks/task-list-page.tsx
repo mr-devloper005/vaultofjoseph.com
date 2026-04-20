@@ -25,18 +25,26 @@ const taskIcons: Record<TaskKey, any> = {
 }
 
 const variantShells = {
-  'listing-directory': 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.08),transparent_24%),linear-gradient(180deg,#f8fbff_0%,#ffffff_100%)]',
-  'listing-showcase': 'bg-[linear-gradient(180deg,#ffffff_0%,#f4f9ff_100%)]',
-  'article-editorial': 'bg-[radial-gradient(circle_at_top_left,rgba(251,191,36,0.08),transparent_20%),linear-gradient(180deg,#fff8ef_0%,#ffffff_100%)]',
-  'article-journal': 'bg-[linear-gradient(180deg,#fffdf9_0%,#f7f1ea_100%)]',
-  'image-masonry': 'bg-[linear-gradient(180deg,#09101d_0%,#111c2f_100%)] text-white',
-  'image-portfolio': 'bg-[linear-gradient(180deg,#07111f_0%,#13203a_100%)] text-white',
-  'profile-creator': 'bg-[linear-gradient(180deg,#0a1120_0%,#101c34_100%)] text-white',
-  'profile-business': 'bg-[linear-gradient(180deg,#f6fbff_0%,#ffffff_100%)]',
-  'classified-bulletin': 'bg-[linear-gradient(180deg,#edf3e4_0%,#ffffff_100%)]',
-  'classified-market': 'bg-[linear-gradient(180deg,#f4f6ef_0%,#ffffff_100%)]',
-  'sbm-curation': 'bg-[linear-gradient(180deg,#fff7ee_0%,#ffffff_100%)]',
-  'sbm-library': 'bg-[linear-gradient(180deg,#f7f8fc_0%,#ffffff_100%)]',
+  'listing-directory':
+    'bg-[radial-gradient(ellipse_80%_50%_at_0%_0%,rgba(169,139,118,0.12),transparent_50%),linear-gradient(180deg,#fdfaf6_0%,#f3e4c9_55%,#ffffff_100%)]',
+  'listing-showcase':
+    'bg-[radial-gradient(circle_at_top_right,rgba(186,191,148,0.14),transparent_42%),linear-gradient(180deg,#ffffff_0%,#f7efe4_100%)]',
+  'article-editorial':
+    'bg-[linear-gradient(180deg,#fffdf8_0%,#f3e4c9_35%,#faf6f0_100%)] bg-[length:100%_100%]',
+  'article-journal':
+    'bg-[repeating-linear-gradient(90deg,rgba(42,31,26,0.03)_0,rgba(42,31,26,0.03)_1px,transparent_1px,transparent_12px),linear-gradient(180deg,#fffefb_0%,#f5ebe0_100%)]',
+  'image-masonry': 'bg-[linear-gradient(180deg,#1a1411_0%,#2a1f1a_48%,#1f1814_100%)] text-[#f3e4c9]',
+  'image-portfolio': 'bg-[linear-gradient(180deg,#241a16_0%,#3d2e26_55%,#1a1411_100%)] text-[#f3e4c9]',
+  'profile-creator': 'bg-[linear-gradient(180deg,#0f0c0b_0%,#2a1f1a_100%)] text-[#f3e4c9]',
+  'profile-business':
+    'bg-[radial-gradient(circle_at_20%_20%,rgba(186,191,148,0.18),transparent_40%),linear-gradient(180deg,#fdfaf6_0%,#ffffff_70%)]',
+  'classified-bulletin': 'bg-[linear-gradient(180deg,#f0e6d8_0%,#ffffff_100%)]',
+  'classified-market':
+    'bg-[radial-gradient(ellipse_100%_60%_at_100%_0%,rgba(169,139,118,0.14),transparent_50%),linear-gradient(180deg,#f3e4c9_0%,#fdfaf6_55%,#ffffff_100%)]',
+  'sbm-curation':
+    'bg-[linear-gradient(180deg,#faf7f2_0%,#ebe4dc_45%,#ffffff_100%)]',
+  'sbm-library': 'bg-[linear-gradient(135deg,#f8f6f2_0%,#e8dfd6_40%,#ffffff_100%)]',
+  'pdf-editorial': 'bg-[linear-gradient(180deg,#fbfcfa_0%,#e4e6dc_35%,#ffffff_100%)]',
 } as const
 
 export async function TaskListPage({ task, category }: { task: TaskKey; category?: string }) {
@@ -56,34 +64,43 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
     name: post.title,
   }))
   const { recipe } = getFactoryState()
-  const layoutKey = recipe.taskLayouts[task as keyof typeof recipe.taskLayouts] || `${task}-${task === 'listing' ? 'directory' : 'editorial'}`
-  const shellClass = variantShells[layoutKey as keyof typeof variantShells] || 'bg-background'
+  const rawLayout = recipe.taskLayouts[task as keyof typeof recipe.taskLayouts] || `${task}-${task === 'listing' ? 'directory' : 'editorial'}`
+  const layoutKey = (rawLayout === 'pdf-editorial' ? 'pdf-editorial' : rawLayout) as keyof typeof variantShells
+  const shellClass = variantShells[layoutKey] || 'bg-background'
   const Icon = taskIcons[task] || LayoutGrid
 
-  const isDark = ['image-masonry', 'image-portfolio', 'profile-creator'].includes(layoutKey)
+  const isDark = ['image-masonry', 'image-portfolio', 'profile-creator'].includes(layoutKey as string)
   const ui = isDark
     ? {
-        muted: 'text-slate-300',
-        panel: 'border border-white/10 bg-white/6',
-        soft: 'border border-white/10 bg-white/5',
-        input: 'border-white/10 bg-white/6 text-white',
-        button: 'bg-white text-slate-950 hover:bg-slate-200',
+        muted: 'text-[#cfc0b4]',
+        panel: 'border border-[#f3e4c9]/12 bg-white/6',
+        soft: 'border border-[#f3e4c9]/10 bg-white/5',
+        input: 'border-[#f3e4c9]/15 bg-white/6 text-[#f3e4c9]',
+        button: 'bg-[#a98b76] text-[#fdf9f3] hover:bg-[#957963]',
       }
     : layoutKey.startsWith('article') || layoutKey.startsWith('sbm')
       ? {
-          muted: 'text-[#72594a]',
-          panel: 'border border-[#dbc6b6] bg-white/90',
-          soft: 'border border-[#dbc6b6] bg-[#fff8ef]',
-          input: 'border border-[#dbc6b6] bg-white text-[#2f1d16]',
-          button: 'bg-[#2f1d16] text-[#fff4e4] hover:bg-[#452920]',
+          muted: 'text-[#5c4a42]',
+          panel: 'border border-[rgba(42,31,26,0.1)] bg-white/95 shadow-[0_18px_48px_rgba(42,31,26,0.06)]',
+          soft: 'border border-[#e8d8bc] bg-[#fdfaf6]',
+          input: 'border border-[#e8d8bc] bg-white text-[#2a1f1a]',
+          button: 'bg-[#a98b76] text-[#fdf9f3] hover:bg-[#957963]',
         }
-      : {
-          muted: 'text-slate-600',
-          panel: 'border border-slate-200 bg-white',
-          soft: 'border border-slate-200 bg-slate-50',
-          input: 'border border-slate-200 bg-white text-slate-950',
-          button: 'bg-slate-950 text-white hover:bg-slate-800',
-        }
+      : layoutKey === 'pdf-editorial'
+        ? {
+            muted: 'text-[#4d5c42]',
+            panel: 'border border-[#babf94]/45 bg-white shadow-[0_20px_50px_rgba(42,31,26,0.06)]',
+            soft: 'border border-[#babf94]/35 bg-[#f6f7f1]',
+            input: 'border border-[#babf94]/40 bg-white text-[#2a1f1a]',
+            button: 'bg-[#4d5c42] text-[#f3f4ef] hover:bg-[#3d4a35]',
+          }
+        : {
+            muted: 'text-[#5c4a42]',
+            panel: 'border border-[rgba(42,31,26,0.1)] bg-white shadow-[0_20px_55px_rgba(42,31,26,0.07)]',
+            soft: 'border border-[rgba(42,31,26,0.08)] bg-[#fdfaf6]',
+            input: 'border border-[#e8d8bc] bg-white text-[#2a1f1a]',
+            button: 'bg-[#a98b76] text-[#fdf9f3] hover:bg-[#957963]',
+          }
 
   return (
     <div className={`min-h-screen ${shellClass}`}>
@@ -205,13 +222,6 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
               <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
               <h1 className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-foreground">Fast-moving notices, offers, and responses in a compact board format.</h1>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-              {['Quick to scan', 'Shorter response path', 'Clearer urgency cues'].map((item) => (
-                <div key={item} className={`rounded-[1.5rem] p-5 ${ui.soft}`}>
-                  <p className="text-sm font-semibold">{item}</p>
-                </div>
-              ))}
-            </div>
           </section>
         ) : null}
 
@@ -237,8 +247,41 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
           </section>
         ) : null}
 
+        {layoutKey === 'pdf-editorial' ? (
+          <section className="mb-12 grid gap-8 lg:grid-cols-[0.55fr_1.45fr] lg:items-stretch">
+            <div className={`flex flex-col justify-between rounded-[1.5rem] p-6 ${ui.soft}`}>
+              <div>
+                <p className={`text-[10px] font-semibold uppercase tracking-[0.28em] ${ui.muted}`}>Document rack</p>
+                <h1 className="mt-4 font-display text-3xl font-semibold tracking-[-0.03em] text-foreground lg:text-4xl">{taskConfig?.description || 'Latest posts'}</h1>
+              </div>
+              <p className={`mt-6 text-xs leading-6 ${ui.muted}`}>Sage borders, paper-white panels, and tighter vertical rhythm so files read as archival—not like ads.</p>
+            </div>
+            <div className={`grid gap-3 rounded-[1.5rem] p-6 sm:grid-cols-3 ${ui.panel}`}>
+              {['Download-ready', 'Category tidy', 'Pairs with articles'].map((label) => (
+                <div key={label} className={`rounded-xl border border-[#babf94]/35 bg-[#f6f7f1] px-4 py-5 text-center`}>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#4d5c42]">{label}</p>
+                </div>
+              ))}
+              <form className="sm:col-span-3" action={taskConfig?.route || '#'}>
+                <label className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${ui.muted}`}>Filter</label>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <select name="category" defaultValue={normalizedCategory} className={`h-11 min-w-[12rem] flex-1 rounded-xl px-3 text-sm ${ui.input}`}>
+                    <option value="all">All categories</option>
+                    {CATEGORY_OPTIONS.map((item) => (
+                      <option key={item.slug} value={item.slug}>{item.name}</option>
+                    ))}
+                  </select>
+                  <button type="submit" className={`h-11 rounded-xl px-5 text-sm font-medium ${ui.button}`}>
+                    Apply
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+        ) : null}
+
         {intro ? (
-          <section className={`mb-12 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)] sm:p-8 ${ui.panel}`}>
+          <section className={`mb-12 rounded-[2rem] p-6 shadow-[0_18px_50px_rgba(42,31,26,0.06)] sm:p-8 ${ui.panel}`}>
             <h2 className="text-2xl font-semibold text-foreground">{intro.title}</h2>
             {intro.paragraphs.map((paragraph) => (
               <p key={paragraph.slice(0, 40)} className={`mt-4 text-sm leading-7 ${ui.muted}`}>{paragraph}</p>

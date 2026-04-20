@@ -1,7 +1,8 @@
 import { PageShell } from "@/components/shared/page-shell";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { MapPin, Search, Tag } from "lucide-react";
 import { fetchSiteFeed } from "@/lib/site-connector";
 import { buildPostUrl, getPostTaskKey } from "@/lib/task-data";
 import { getMockPostsForTask } from "@/lib/mock-posts";
@@ -9,6 +10,36 @@ import { SITE_CONFIG } from "@/lib/site-config";
 import { TaskPostCard } from "@/components/shared/task-post-card";
 
 export const revalidate = 3;
+
+const SEARCH_FALLBACK_ADS = [
+  {
+    id: "search-fallback-1",
+    title: "Royal Enfield Classic 350 (2021) - Single Owner",
+    price: "INR 1,58,000",
+    location: "Ludhiana, Punjab",
+    summary: "Complete service history, clean papers, and weekend test ride available.",
+    category: "For Sale",
+    href: "/classifieds/royal-enfield-classic-350-2021-single-owner",
+  },
+  {
+    id: "search-fallback-2",
+    title: "2BHK Apartment for Rent Near Model Town",
+    price: "INR 18,500 / month",
+    location: "Model Town, Jalandhar",
+    summary: "Semi-furnished apartment with parking, 24x7 water supply, and immediate move-in.",
+    category: "Property",
+    href: "/classifieds/2bhk-apartment-for-rent-model-town",
+  },
+  {
+    id: "search-fallback-3",
+    title: "Part-Time Accountant Needed (Evening Shift)",
+    price: "INR 15,000 - 22,000",
+    location: "Amritsar, Punjab",
+    summary: "Tally and GST filing experience preferred. Flexible evening schedule.",
+    category: "Jobs",
+    href: "/classifieds/part-time-accountant-evening-shift",
+  },
+] as const;
 
 const matchText = (value: string, query: string) =>
   value.toLowerCase().includes(query);
@@ -107,8 +138,32 @@ export default async function SearchPage({
           })}
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
-          No matching posts yet.
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">
+            No matching posts yet. Try these live-style listings:
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {SEARCH_FALLBACK_ADS.map((ad) => (
+              <Link
+                key={ad.id}
+                href={ad.href}
+                className="group rounded-[1.5rem] border border-[rgba(42,31,26,0.12)] bg-white p-5 shadow-[0_14px_32px_rgba(42,31,26,0.08)] transition hover:-translate-y-1 hover:shadow-[0_18px_38px_rgba(42,31,26,0.12)]"
+              >
+                <p className="inline-flex items-center gap-1 rounded-full bg-[#2a1f1a] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#f3e4c9]">
+                  <Tag className="h-3.5 w-3.5" />
+                  {ad.category}
+                </p>
+                <h3 className="mt-3 line-clamp-2 text-xl font-semibold leading-snug text-[#2a1f1a]">{ad.title}</h3>
+                <p className="mt-2 text-sm font-semibold text-[#a98b76]">{ad.price}</p>
+                <p className="mt-2 flex items-center gap-1.5 text-sm text-[#5c4a42]">
+                  <MapPin className="h-4 w-4 text-[#a98b76]" />
+                  {ad.location}
+                </p>
+                <p className="mt-3 line-clamp-2 text-sm leading-7 text-[#5c4a42]">{ad.summary}</p>
+                <p className="mt-5 text-sm font-semibold text-[#a98b76]">View listing →</p>
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </PageShell>

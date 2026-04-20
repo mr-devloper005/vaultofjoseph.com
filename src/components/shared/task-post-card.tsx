@@ -68,16 +68,16 @@ const cardStyles = {
     badge: 'bg-[#2b1d17] text-[#fff3df]',
   },
   'studio-panel': {
-    frame: 'rounded-[1.9rem] border border-white/10 bg-[linear-gradient(180deg,rgba(7,17,31,0.96),rgba(12,23,43,0.96))] text-white shadow-[0_24px_80px_rgba(15,23,42,0.35)] hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(15,23,42,0.42)]',
-    muted: 'text-slate-300',
-    title: 'text-white',
-    badge: 'bg-[#8df0c8] text-[#07111f]',
+    frame: 'rounded-[1.9rem] border border-[#f3e4c9]/12 bg-[linear-gradient(180deg,rgba(36,26,22,0.96),rgba(26,20,17,0.98))] text-[#f3e4c9] shadow-[0_24px_80px_rgba(0,0,0,0.28)] hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(0,0,0,0.32)]',
+    muted: 'text-[#cfc0b4]',
+    title: 'text-[#f3e4c9]',
+    badge: 'bg-[#babf94] text-[#1f1c18]',
   },
   'catalog-grid': {
-    frame: 'rounded-[1.8rem] border border-[rgba(67,78,41,0.14)] bg-[#f8faf1] shadow-[0_18px_58px_rgba(55,65,31,0.1)] hover:-translate-y-1 hover:shadow-[0_28px_70px_rgba(55,65,31,0.14)]',
-    muted: 'text-[#5b664c]',
-    title: 'text-[#1f2617]',
-    badge: 'bg-[#1f2617] text-[#edf5dc]',
+    frame: 'rounded-[1.8rem] border border-[rgba(186,191,148,0.45)] bg-[#fdfaf6] shadow-[0_18px_52px_rgba(42,31,26,0.08)] hover:-translate-y-1 hover:shadow-[0_26px_64px_rgba(42,31,26,0.11)]',
+    muted: 'text-[#5c4a42]',
+    title: 'text-[#2a1f1a]',
+    badge: 'bg-[#2a1f1a] text-[#f3e4c9]',
   },
 } as const
 
@@ -117,11 +117,11 @@ export function TaskPostCard({
   if (isDirectorySurface) {
     const cardTone = recipe.brandPack === 'market-utility'
       ? {
-          frame: 'rounded-[1.75rem] border border-[#d7deca] bg-white shadow-[0_18px_44px_rgba(64,76,34,0.08)] hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(64,76,34,0.14)]',
-          badge: 'bg-[#1f2617] text-[#edf5dc]',
-          muted: 'text-[#5b664c]',
-          title: 'text-[#1f2617]',
-          cta: 'text-[#1f2617]',
+          frame: 'rounded-[1.75rem] border border-[rgba(42,31,26,0.08)] bg-white shadow-[0_18px_44px_rgba(42,31,26,0.08)] hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(42,31,26,0.12)]',
+          badge: 'bg-[#2a1f1a] text-[#f3e4c9]',
+          muted: 'text-[#5c4a42]',
+          title: 'text-[#2a1f1a]',
+          cta: 'text-[#a98b76]',
         }
       : {
           frame: 'rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)] hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.14)]',
