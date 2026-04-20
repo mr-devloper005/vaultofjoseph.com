@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Bookmark, Building2, Compass, FileText, Globe2, Image as ImageIcon, LayoutGrid, MapPin, ShieldCheck, Tag, User } from 'lucide-react'
+import { ArrowRight, Bookmark, Building2, FileText, Image as ImageIcon, LayoutGrid, MapPin, ShieldCheck, Tag, User } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
@@ -11,7 +11,7 @@ import { buildPageMetadata } from '@/lib/seo'
 import { fetchTaskPosts } from '@/lib/task-data'
 import { siteContent } from '@/config/site.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
-import { getProductKind, type ProductKind } from '@/design/factory/get-product-kind'
+import { getProductKind } from '@/design/factory/get-product-kind'
 import type { SitePost } from '@/lib/site-connector'
 import { HOME_PAGE_OVERRIDE_ENABLED, HomePageOverride } from '@/overrides/home-page'
 
@@ -72,31 +72,71 @@ function getPostMeta(post?: SitePost | null) {
   }
 }
 
-function getDirectoryTone(brandPack: string) {
-  if (brandPack === 'market-utility') {
-    return {
-      shell: 'bg-[#f5f7f1] text-[#1f2617]',
-      hero: 'bg-[linear-gradient(180deg,#eef4e4_0%,#f8faf4_100%)]',
-      panel: 'border border-[#d5ddc8] bg-white shadow-[0_24px_64px_rgba(64,76,34,0.08)]',
-      soft: 'border border-[#d5ddc8] bg-[#eff3e7]',
-      muted: 'text-[#5b664c]',
-      title: 'text-[#1f2617]',
-      badge: 'bg-[#1f2617] text-[#edf5dc]',
-      action: 'bg-[#1f2617] text-[#edf5dc] hover:bg-[#2f3a24]',
-      actionAlt: 'border border-[#d5ddc8] bg-white text-[#1f2617] hover:bg-[#eef3e7]',
-    }
-  }
-  return {
-    shell: 'bg-[#f8fbff] text-slate-950',
-    hero: 'bg-[linear-gradient(180deg,#eef6ff_0%,#ffffff_100%)]',
-    panel: 'border border-slate-200 bg-white shadow-[0_24px_64px_rgba(15,23,42,0.08)]',
-    soft: 'border border-slate-200 bg-slate-50',
-    muted: 'text-slate-600',
-    title: 'text-slate-950',
-    badge: 'bg-slate-950 text-white',
-    action: 'bg-slate-950 text-white hover:bg-slate-800',
-    actionAlt: 'border border-slate-200 bg-white text-slate-950 hover:bg-slate-100',
-  }
+/** Demo ads for empty feed — swap for live posts when the connector returns data. */
+const FEATURED_PLACEHOLDER_ADS = [
+  {
+    slug: '2019-honda-civic-lx-river-district',
+    category: 'For sale',
+    title: '2019 Honda Civic LX',
+    price: '$14,200 OBO',
+    location: 'River District · 12 mi',
+    excerpt: 'Clean title, full service history. Weekday evenings or Sat AM for test drives.',
+    image: '/placeholder.svg?height=720&width=960',
+  },
+  {
+    slug: 'solid-oak-dining-table-6-chairs',
+    category: 'Furniture',
+    title: 'Solid oak dining table + 6 chairs',
+    price: '$680',
+    location: 'Pickup near Old Town',
+    excerpt: 'Minor surface wear; legs disassemble for moving. Cash or Venmo on pickup.',
+    image: '/placeholder.svg?height=720&width=960',
+  },
+  {
+    slug: 'weekend-childcare-references-on-request',
+    category: 'Services',
+    title: 'Weekend childcare — references on request',
+    price: 'From $22/hr',
+    location: 'Eastside / flexible',
+    excerpt: 'CPR certified, 6+ years experience. First meeting always in a public place.',
+    image: '/placeholder.svg?height=720&width=960',
+  },
+] as const
+
+function PlaceholderFeaturedAdCard({
+  ad,
+}: {
+  ad: (typeof FEATURED_PLACEHOLDER_ADS)[number]
+}) {
+  return (
+    <Link
+      href={`/classifieds/${ad.slug}`}
+      className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[rgba(42,31,26,0.08)] bg-white shadow-[0_18px_44px_rgba(42,31,26,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(42,31,26,0.12)]"
+    >
+      <div className="relative aspect-[16/11] overflow-hidden bg-[#ede2dc]">
+        <ContentImage src={ad.image} alt={ad.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
+          <span className="inline-flex items-center gap-1 rounded-full bg-[#2a1f1a] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#f3e4c9]">
+            <Tag className="h-3.5 w-3.5" />
+            {ad.category}
+          </span>
+          <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#2a1f1a]">Featured</span>
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="line-clamp-2 text-xl font-semibold leading-snug text-[#2a1f1a]">{ad.title}</h3>
+        </div>
+        <p className="mt-2 text-sm font-semibold text-[#a98b76]">{ad.price}</p>
+        <p className="mt-2 line-clamp-2 text-sm leading-7 text-[#5c4a42]">{ad.excerpt}</p>
+        <p className="mt-4 flex items-center gap-1.5 text-xs text-[#5c4a42]">
+          <MapPin className="h-3.5 w-3.5 shrink-0 text-[#a98b76]" />
+          {ad.location}
+        </p>
+        <span className="mt-auto pt-5 text-sm font-semibold text-[#a98b76]">View listing →</span>
+      </div>
+    </Link>
+  )
 }
 
 function getEditorialTone() {
@@ -138,129 +178,135 @@ function getCurationTone() {
   }
 }
 
-function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPosts, profilePosts, brandPack }: {
+function DirectoryHome({
+  primaryTask,
+  enabledTasks,
+  listingPosts,
+  classifiedPosts,
+  profilePosts,
+}: {
   primaryTask?: EnabledTask
   enabledTasks: EnabledTask[]
   listingPosts: SitePost[]
   classifiedPosts: SitePost[]
   profilePosts: SitePost[]
-  brandPack: string
 }) {
-  const tone = getDirectoryTone(brandPack)
-  const featuredListings = (listingPosts.length ? listingPosts : classifiedPosts).slice(0, 3)
-  const featuredTaskKey: TaskKey = listingPosts.length ? 'listing' : 'classified'
-  const quickRoutes = enabledTasks.slice(0, 4)
+  const featuredPosts = (classifiedPosts.length ? classifiedPosts : listingPosts).slice(0, 3)
+  const featuredTaskKey: TaskKey = classifiedPosts.length ? 'classified' : 'listing'
 
   return (
-    <main>
-      <section className={tone.hero}>
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-          <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-            <div>
-              <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-                <Compass className="h-3.5 w-3.5" />
-                Local discovery product
-              </span>
-              <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-                Search businesses, compare options, and act fast without digging through generic feeds.
-              </h1>
-              <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
-
-              <div className={`mt-8 grid gap-3 rounded-[2rem] p-4 ${tone.panel} md:grid-cols-[1.25fr_0.8fr_auto]`}>
-                <div className="rounded-full bg-black/5 px-4 py-3 text-sm">What do you need today?</div>
-                <div className="rounded-full bg-black/5 px-4 py-3 text-sm">Choose area or city</div>
-                <Link href={primaryTask?.route || '/listings'} className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                  Browse now
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+    <main className="text-[#2a1f1a]">
+      <section className="relative overflow-hidden bg-[#2a1f1a] text-[#f3e4c9]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -left-32 top-0 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(169,139,118,0.35),transparent_68%)] opacity-90 blur-2xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 bottom-0 h-[380px] w-[380px] rounded-full bg-[radial-gradient(circle,rgba(186,191,148,0.28),transparent_70%)] opacity-80 blur-2xl"
+        />
+        <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-12 sm:px-6 sm:pb-14 sm:pt-16 lg:px-8 lg:pb-16 lg:pt-20">
+          <p className="max-w-xl border-l-[3px] border-[#a98b76] pl-4 text-[13px] font-semibold leading-snug tracking-wide text-[#e8d8bc] sm:text-sm">
+            {siteContent.hero.eyebrow}
+          </p>
+          <h1 className="mt-8 max-w-4xl font-display text-[2.35rem] font-semibold leading-[1.08] tracking-[-0.04em] text-[#f3e4c9] sm:text-5xl lg:text-[3.25rem]">
+            {siteContent.hero.title[0]}
+            <span className="text-[#bfa28c]"> </span>
+            {siteContent.hero.title[1]}
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#dfc8b8] sm:text-lg">{siteContent.hero.description}</p>
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href={siteContent.hero.primaryCta.href}
+              className="inline-flex items-center gap-2 rounded-full bg-[#a98b76] px-6 py-3 text-sm font-semibold text-[#fdf9f3] shadow-[0_14px_40px_rgba(0,0,0,0.25)] transition hover:bg-[#957963]"
+            >
+              {siteContent.hero.primaryCta.label}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href={siteContent.hero.secondaryCta.href}
+              className="inline-flex items-center gap-2 rounded-full border border-[#f3e4c9]/35 px-6 py-3 text-sm font-semibold text-[#f3e4c9] transition hover:bg-[#f3e4c9]/8"
+            >
+              {siteContent.hero.secondaryCta.label}
+            </Link>
+          </div>
+          <div className="mt-14 grid gap-4 sm:grid-cols-3">
+            {siteContent.hero.featureHighlights.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-[#f3e4c9]/12 bg-[linear-gradient(145deg,rgba(26,20,17,0.78)_0%,rgba(32,24,20,0.55)_100%)] p-5 shadow-[inset_4px_0_0_0_rgba(186,191,148,0.72)] backdrop-blur-sm"
+              >
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#babf94]">{item.title}</p>
+                <p className="mt-3 text-sm leading-relaxed text-[#f3e4c9]">{item.body}</p>
               </div>
+            ))}
+          </div>
+        </div>
+        <div className="voj-hero-wave bg-[#f3e4c9]" />
+      </section>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                {[
-                  ['Verified businesses', `${featuredListings.length || 3}+ highlighted surfaces`],
-                  ['Fast scan rhythm', 'More utility, less filler'],
-                  ['Action first', 'Call, visit, shortlist, compare'],
-                ].map(([label, value]) => (
-                  <div key={label} className={`rounded-[1.4rem] p-4 ${tone.soft}`}>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">{label}</p>
-                    <p className="mt-2 text-lg font-semibold">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-4">
-              <div className={`rounded-[2rem] p-6 ${tone.panel}`}>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">Primary lane</p>
-                    <h2 className="mt-2 text-3xl font-semibold">{primaryTask?.label || 'Listings'}</h2>
-                  </div>
-                  <ShieldCheck className="h-6 w-6" />
-                </div>
-                <p className={`mt-4 text-sm leading-7 ${tone.muted}`}>{primaryTask?.description || 'Structured discovery for services, offers, and business surfaces.'}</p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {quickRoutes.map((task) => {
-                  const Icon = taskIcons[task.key as TaskKey] || LayoutGrid
-                  return (
-                    <Link key={task.key} href={task.route} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
-                      <Icon className="h-5 w-5" />
-                      <h3 className="mt-4 text-lg font-semibold">{task.label}</h3>
-                      <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{task.description}</p>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
+      <section className="border-t border-[rgba(232,216,188,0.55)] bg-[linear-gradient(180deg,#fdfaf6_0%,#f7efe4_100%)] py-14 sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="border-b border-[rgba(42,31,26,0.08)] pb-6">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#a98b76]">Featured picks</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#2a1f1a]">Latest on the board</h2>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {featuredPosts.length
+              ? featuredPosts.map((post) => (
+                  <TaskPostCard key={post.id} post={post} href={getTaskHref(featuredTaskKey, post.slug)} taskKey={featuredTaskKey} />
+                ))
+              : FEATURED_PLACEHOLDER_ADS.map((ad) => <PlaceholderFeaturedAdCard key={ad.title} ad={ad} />)}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between gap-4 border-b border-border pb-6">
+      <section className="bg-[#2a1f1a] py-14 text-[#f3e4c9] sm:py-16">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Featured businesses</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Strong listings with clearer trust cues.</h2>
-          </div>
-          <Link href="/listings" className="text-sm font-semibold text-primary hover:opacity-80">Open listings</Link>
-        </div>
-        <div className="mt-8 grid gap-6 lg:grid-cols-3">
-          {featuredListings.map((post) => (
-            <TaskPostCard key={post.id} post={post} href={getTaskHref(featuredTaskKey, post.slug)} taskKey={featuredTaskKey} />
-          ))}
-        </div>
-      </section>
-
-      <section className={`${tone.shell}`}>
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">What makes this different</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Built like a business directory, not a recolored content site.</h2>
-            <ul className={`mt-6 space-y-3 text-sm leading-7 ${tone.muted}`}>
-              <li>Search-first hero instead of a magazine headline.</li>
-              <li>Action-oriented listing cards with trust metadata.</li>
-              <li>Support lanes for offers, businesses, and profiles.</li>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#babf94]">{siteContent.home.introBadge}</p>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">{siteContent.home.introTitle}</h2>
+            <ul className="mt-6 space-y-4 text-sm leading-7 text-[#dfc8b8]">
+              {siteContent.home.introParagraphs.map((p) => (
+                <li key={p.slice(0, 32)}>{p}</li>
+              ))}
             </ul>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href={siteContent.home.primaryLink.href} className="inline-flex items-center gap-2 rounded-full bg-[#a98b76] px-5 py-2.5 text-sm font-semibold text-[#fdf9f3] hover:bg-[#957963]">
+                {siteContent.home.primaryLink.label}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {(profilePosts.length ? profilePosts : classifiedPosts).slice(0, 4).map((post) => {
-              const meta = getPostMeta(post)
-              const taskKey = resolveTaskKey(post.task, profilePosts.length ? 'profile' : 'classified')
-              return (
-                <Link key={post.id} href={getTaskHref(taskKey, post.slug)} className={`overflow-hidden rounded-[1.8rem] ${tone.panel}`}>
-                  <div className="relative h-44 overflow-hidden">
-                    <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
-                  </div>
-                  <div className="p-5">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.24em] opacity-70">{meta.category || post.task || 'Profile'}</p>
-                    <h3 className="mt-2 text-xl font-semibold">{post.title}</h3>
-                    <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Quick access to local information and related surfaces.'}</p>
-                  </div>
-                </Link>
-              )
-            })}
+          <div className="grid gap-4">
+            <div className="rounded-2xl border border-[#f3e4c9]/12 bg-[#1a1411]/5 p-6">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#babf94]">Primary lane</p>
+                  <p className="mt-2 font-display text-2xl font-semibold">{primaryTask?.label || 'Classifieds'}</p>
+                </div>
+                <ShieldCheck className="h-7 w-7 text-[#babf94]" />
+              </div>
+              <p className="mt-4 text-sm leading-7 text-[#e8d8bc]">{primaryTask?.description}</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {(profilePosts.length ? profilePosts : classifiedPosts).slice(0, 4).map((post) => {
+                const meta = getPostMeta(post)
+                const taskKey = resolveTaskKey(post.task, profilePosts.length ? 'profile' : 'classified')
+                return (
+                  <Link key={post.id} href={getTaskHref(taskKey, post.slug)} className="group overflow-hidden rounded-2xl border border-[#f3e4c9]/12 bg-[#1a1411]/35 transition hover:border-[#babf94]/35">
+                    <div className="relative h-40 overflow-hidden">
+                      <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" />
+                    </div>
+                    <div className="p-4">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#babf94]">{meta.category || taskKey}</p>
+                      <h3 className="mt-2 line-clamp-2 font-display text-lg font-semibold text-[#f3e4c9]">{post.title}</h3>
+                      <p className="mt-2 line-clamp-2 text-xs leading-6 text-[#cfc0b4]">{post.summary || 'Open the post for full details and contact paths.'}</p>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -531,7 +577,6 @@ export default async function HomePage() {
           listingPosts={listingPosts}
           classifiedPosts={classifiedPosts}
           profilePosts={profilePosts}
-          brandPack={recipe.brandPack}
         />
       ) : null}
       {productKind === 'editorial' ? (

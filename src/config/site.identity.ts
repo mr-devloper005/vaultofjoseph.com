@@ -1,10 +1,10 @@
 export const siteIdentity = {
   code: process.env.NEXT_PUBLIC_SITE_CODE || 'n5ocotrvmv',
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'Vaultofjoseph',
-  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Classified platform',
+  tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE || 'Premium local classifieds',
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    'A classified site for Vaultofjoseph, built for clean discovery and structured publishing.',
+    'Local classifieds and listings on Vaultofjoseph—clear categories, calm layout, and fast paths to contact.',
   domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'vaultofjoseph.com',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://vaultofjoseph.com',
   ogImage: process.env.NEXT_PUBLIC_SITE_OG_IMAGE || '/og-default.png',

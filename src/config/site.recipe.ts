@@ -8,9 +8,14 @@ export const SITE_RECIPE: SiteRecipe = {
   footerTemplate: 'minimal-footer',
   motionPack: 'utility-snappy',
   primaryTask: 'classified',
-  enabledTasks: ['classified'],
+  enabledTasks: ['classified', 'listing', 'article', 'image', 'profile', 'sbm'],
   taskTemplates: {
     classified: 'classified-market',
+    listing: 'listing-directory',
+    article: 'article-editorial',
+    image: 'image-portfolio',
+    profile: 'profile-business',
+    sbm: 'sbm-curation',
   },
   manualOverrides: {
     navbar: false,
