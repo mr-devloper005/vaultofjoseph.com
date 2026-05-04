@@ -3,60 +3,23 @@
 import { useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Bookmark, Building2, FileText, Image as ImageIcon, Sparkles } from 'lucide-react'
+import { Building2, Sparkles, Mail, Lock, Eye, EyeOff, Github, Chrome, ArrowRight, Shield, CheckCircle2 } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
-import { getFactoryState } from '@/design/factory/get-factory-state'
-import { getProductKind } from '@/design/factory/get-product-kind'
 import { LOGIN_PAGE_OVERRIDE_ENABLED, LoginPageOverride } from '@/overrides/login-page'
 import { useAuth } from '@/lib/auth-context'
 
-function getLoginConfig(kind: ReturnType<typeof getProductKind>) {
-  if (kind === 'directory') {
-    return {
-      shell: 'bg-[#f8fbff] text-slate-950',
-      panel: 'border border-slate-200 bg-white',
-      side: 'border border-slate-200 bg-slate-50',
-      muted: 'text-slate-600',
-      action: 'bg-slate-950 text-white hover:bg-slate-800',
-      icon: Building2,
-      title: 'Access your business dashboard',
-      body: 'Manage listings, verification details, contact info, and local discovery surfaces from one place.',
-    }
-  }
-  if (kind === 'editorial') {
-    return {
-      shell: 'bg-[#fbf6ee] text-[#241711]',
-      panel: 'border border-[#dcc8b7] bg-[#fffdfa]',
-      side: 'border border-[#e6d6c8] bg-[#fff4e8]',
-      muted: 'text-[#6e5547]',
-      action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
-      icon: FileText,
-      title: 'Sign in to your publication workspace',
-      body: 'Draft, review, and publish long-form work with the calmer reading system intact.',
-    }
-  }
-  if (kind === 'visual') {
-    return {
-      shell: 'bg-[#07101f] text-white',
-      panel: 'border border-white/10 bg-white/6',
-      side: 'border border-white/10 bg-white/5',
-      muted: 'text-slate-300',
-      action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-      icon: ImageIcon,
-      title: 'Enter the creator workspace',
-      body: 'Open your visual feed, creator profile, and publishing tools without dropping into a generic admin shell.',
-    }
-  }
+function getLoginConfig() {
+  // Consistent homepage-style dark brown theme
   return {
-    shell: 'bg-[#f7f1ea] text-[#261811]',
-    panel: 'border border-[#ddcdbd] bg-[#fffaf4]',
-    side: 'border border-[#e8dbce] bg-[#f3e8db]',
-    muted: 'text-[#71574a]',
-    action: 'bg-[#5b2b3b] text-[#fff0f5] hover:bg-[#74364b]',
-    icon: Bookmark,
-    title: 'Open your curated collections',
-    body: 'Manage saved resources, collection notes, and curator identity from a calmer workspace.',
+    shell: 'bg-[#2a1f1a] text-[#f3e4c9]',
+    panel: 'border border-[#f3e4c9]/12 bg-[#1a1411]/60',
+    side: 'border border-[#f3e4c9]/10 bg-[#1a1411]/40',
+    muted: 'text-[#bfa28c]',
+    action: 'bg-[#a98b76] text-[#fdf9f3] hover:bg-[#957963]',
+    icon: Building2,
+    title: 'Welcome back',
+    body: 'Sign in to manage your listings, classifieds, and discoveries from one place.',
   }
 }
 
@@ -65,14 +28,14 @@ export default function LoginPage() {
     return <LoginPageOverride />
   }
 
-  const { recipe } = getFactoryState()
-  const productKind = getProductKind(recipe)
-  const config = getLoginConfig(productKind)
+  const config = getLoginConfig()
   const Icon = config.icon
   const router = useRouter()
   const { login, isLoading } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -97,38 +60,107 @@ export default function LoginPage() {
           </div>
 
           <div className={`rounded-[2rem] p-8 ${config.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Welcome back</p>
-            <form className="mt-6 grid gap-4" onSubmit={handleSubmit}>
-              <input
-                className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm"
-                placeholder="Email address"
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
-              />
-              <input
-                className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm"
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
+            <div className="mb-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Welcome back</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight">Sign in to your account</h2>
+            </div>
+            
+            {/* Social Login Options */}
+            <div className="mb-6 grid grid-cols-2 gap-3">
+              <button type="button" className={`inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-current/10 px-4 text-sm font-medium transition-colors hover:bg-current/5 ${config.muted}`}>
+                <Chrome className="h-4 w-4" />
+                Google
+              </button>
+              <button type="button" className={`inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-current/10 px-4 text-sm font-medium transition-colors hover:bg-current/5 ${config.muted}`}>
+                <Github className="h-4 w-4" />
+                GitHub
+              </button>
+            </div>
+            
+            <div className="mb-6 flex items-center gap-3">
+              <div className="h-px flex-1 bg-current/10" />
+              <span className={`text-xs ${config.muted}`}>or continue with email</span>
+              <div className="h-px flex-1 bg-current/10" />
+            </div>
+            
+            <form className="grid gap-4" onSubmit={handleSubmit}>
+              <div className="relative">
+                <Mail className={`absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 ${config.muted}`} />
+                <input
+                  className="h-12 w-full rounded-xl border border-current/10 bg-transparent pl-11 pr-4 text-sm transition-all focus:border-primary/50 focus:outline-none"
+                  placeholder="Email address"
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+              </div>
+              <div className="relative">
+                <Lock className={`absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 ${config.muted}`} />
+                <input
+                  className="h-12 w-full rounded-xl border border-current/10 bg-transparent pl-11 pr-12 text-sm transition-all focus:border-primary/50 focus:outline-none"
+                  placeholder="Password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className={`absolute right-4 top-1/2 -translate-y-1/2 ${config.muted} hover:text-current`}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="h-4 w-4 rounded border-current/20 bg-transparent"
+                  />
+                  <span className={`text-sm ${config.muted}`}>Remember me</span>
+                </label>
+                <Link href="/forgot-password" className={`text-sm font-medium hover:underline ${config.muted}`}>
+                  Forgot password?
+                </Link>
+              </div>
+              
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${config.action} disabled:opacity-60`}
+                className={`group mt-2 inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] ${config.action} disabled:opacity-60`}
               >
-                {isLoading ? 'Signing in...' : 'Sign in'}
+                {isLoading ? 'Signing in...' : (
+                  <>
+                    Sign in
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </>
+                )}
               </button>
             </form>
-            <div className={`mt-6 flex items-center justify-between text-sm ${config.muted}`}>
-              <Link href="/forgot-password" className="hover:underline">Forgot password?</Link>
-              <Link href="/register" className="inline-flex items-center gap-2 font-semibold hover:underline">
-                <Sparkles className="h-4 w-4" />
+            
+            <div className={`mt-6 flex items-center justify-center gap-2 text-sm ${config.muted}`}>
+              <span>Don't have an account?</span>
+              <Link href="/register" className="inline-flex items-center gap-1 font-semibold text-primary hover:underline">
                 Create account
+                <Sparkles className="h-3.5 w-3.5" />
               </Link>
+            </div>
+            
+            {/* Trust Indicators */}
+            <div className={`mt-6 flex items-center justify-center gap-4 border-t border-current/10 pt-6 text-xs ${config.muted}`}>
+              <span className="flex items-center gap-1">
+                <Shield className="h-3.5 w-3.5" />
+                Secure login
+              </span>
+              <span className="flex items-center gap-1">
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                SSL encrypted
+              </span>
             </div>
           </div>
         </section>

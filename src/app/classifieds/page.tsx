@@ -11,6 +11,11 @@ export const generateMetadata = () =>
     description: taskPageMetadata.classified.description,
   });
 
-export default function ClassifiedsPage({ searchParams }: { searchParams?: { category?: string } }) {
-  return <TaskListPage task="classified" category={searchParams?.category} />;
+export default async function ClassifiedsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ category?: string }>;
+}) {
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  return <TaskListPage task="classified" category={resolvedSearchParams?.category} />;
 }
