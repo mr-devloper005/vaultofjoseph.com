@@ -261,7 +261,7 @@ function DirectoryHome({
         </div>
       </section>
 
-      <section className="bg-[#2a1f1a] py-14 text-[#f3e4c9] sm:py-16">
+      <section className="bg-[#2a1f1a] py-14 text-[#f3e4c9] sm:py-16 mb-8 sm:mb-12">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-8">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#babf94]">{siteContent.home.introBadge}</p>

@@ -217,10 +217,45 @@ export async function TaskListPage({ task, category }: { task: TaskKey; category
         ) : null}
 
         {layoutKey === 'classified-bulletin' || layoutKey === 'classified-market' ? (
-          <section className="mb-12 grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <section className="mb-12 grid gap-6 lg:grid-cols-[1fr_0.85fr] lg:items-start">
             <div className={`rounded-[1.8rem] p-6 ${ui.panel}`}>
               <p className={`text-xs uppercase tracking-[0.3em] ${ui.muted}`}>{taskConfig?.label || task}</p>
               <h1 className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-foreground">Fast-moving notices, offers, and responses in a compact board format.</h1>
+            </div>
+            <div className={`rounded-[1.8rem] p-6 ${ui.soft}`}>
+              <p className={`text-xs font-semibold uppercase tracking-[0.24em] ${ui.muted}`}>Filter by category</p>
+              <form className="mt-4 flex flex-col gap-3 sm:flex-row" action={taskConfig?.route || '#'}>
+                <select
+                  name="category"
+                  defaultValue={normalizedCategory}
+                  className={`h-12 flex-1 rounded-xl px-4 text-sm ${ui.input}`}
+                >
+                  <option value="all">All categories</option>
+                  {CATEGORY_OPTIONS.map((item) => (
+                    <option key={item.slug} value={item.slug}>{item.name}</option>
+                  ))}
+                </select>
+                <button type="submit" className={`h-12 rounded-xl px-6 text-sm font-semibold ${ui.button}`}>
+                  Apply filter
+                </button>
+              </form>
+              <div className={`mt-4 flex flex-wrap gap-2`}>
+                {CATEGORY_OPTIONS.slice(0, 5).map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`${taskConfig?.route || '/classifieds'}?category=${cat.slug}`}
+                    className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors hover:bg-current/10 ${ui.soft} ${normalizedCategory === cat.slug ? 'bg-current/20' : ''}`}
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+                <Link
+                  href={taskConfig?.route || '/classifieds'}
+                  className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors hover:bg-current/10 ${ui.soft}`}
+                >
+                  View all →
+                </Link>
+              </div>
             </div>
           </section>
         ) : null}

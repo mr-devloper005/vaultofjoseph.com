@@ -26,6 +26,7 @@ const footerLinks = {
   })),
   company: [
     { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
     { name: 'Team', href: '/team' },
     { name: 'Careers', href: '/careers' },
     { name: 'Blog', href: '/blog' },
@@ -75,6 +76,10 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-sm leading-7 text-[#e8d8bc]">{SITE_CONFIG.description}</p>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <Link href="/about" className="text-[#e8d8bc] hover:text-[#f3e4c9]">About</Link>
+            <Link href="/contact" className="text-[#e8d8bc] hover:text-[#f3e4c9]">Contact</Link>
           </div>
         </div>
         <div className="border-t border-[#f3e4c9]/10 py-4 text-center text-xs text-[#bfa28c]">

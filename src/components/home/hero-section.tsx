@@ -13,15 +13,17 @@ const FALLBACK_IMAGE = "/placeholder.svg?height=1400&width=2400";
 
 const heroClasses = {
   'search-first': {
-    section: 'border-b border-slate-200 bg-[linear-gradient(180deg,#edf5ff_0%,#f8fbff_42%,#ffffff_100%)] text-slate-950',
-    overlay: 'bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.18),transparent_26%),radial-gradient(circle_at_top_right,rgba(15,23,42,0.12),transparent_26%)]',
+    section:
+      'border-b border-white/12 bg-[linear-gradient(90deg,#0ea5e9_0%,#2563eb_55%,#7c3aed_100%)] text-white',
+    overlay:
+      'bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.26),transparent_30%)]',
     grid: 'lg:grid-cols-[1.08fr_0.92fr]',
-    card: 'border border-white/70 bg-white/80 shadow-[0_28px_90px_rgba(15,23,42,0.12)]',
-    title: 'text-slate-950',
-    body: 'text-slate-600',
-    badge: 'bg-slate-950 text-white',
-    primary: 'bg-slate-950 text-white hover:bg-slate-800',
-    secondary: 'border border-slate-200 bg-white text-slate-900 hover:bg-slate-100',
+    card: 'border border-white/15 bg-white/10 shadow-[0_28px_90px_rgba(15,23,42,0.22)] backdrop-blur-md',
+    title: 'text-white',
+    body: 'text-white/80',
+    badge: 'bg-white/15 text-white',
+    primary: 'bg-white text-slate-950 hover:bg-white/90',
+    secondary: 'border border-white/25 bg-white/10 text-white hover:bg-white/15',
   },
   'spotlight-split': {
     section: 'border-b border-[rgba(123,72,35,0.14)] bg-[linear-gradient(180deg,#1f1613_0%,#2d1d17_50%,#fff7ed_100%)] text-white',
