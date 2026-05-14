@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Building2, Sparkles, User, Mail, Lock, Eye, EyeOff, Github, Chrome, ArrowRight, Shield, CheckCircle2, Info } from 'lucide-react'
+import { Building2, Sparkles, User, Mail, Lock, Eye, EyeOff, ArrowRight, Shield, CheckCircle2, Info } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { REGISTER_PAGE_OVERRIDE_ENABLED, RegisterPageOverride } from '@/overrides/register-page'
@@ -66,24 +66,6 @@ export default function RegisterPage() {
             <div className="mb-6">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Create account</p>
               <h2 className="mt-2 text-2xl font-semibold tracking-tight">Join {SITE_CONFIG.name}</h2>
-            </div>
-            
-            {/* Social Signup Options */}
-            <div className="mb-6 grid grid-cols-2 gap-3">
-              <button type="button" className={`inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-current/10 px-4 text-sm font-medium transition-colors hover:bg-current/5 ${config.muted}`}>
-                <Chrome className="h-4 w-4" />
-                Google
-              </button>
-              <button type="button" className={`inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-current/10 px-4 text-sm font-medium transition-colors hover:bg-current/5 ${config.muted}`}>
-                <Github className="h-4 w-4" />
-                GitHub
-              </button>
-            </div>
-            
-            <div className="mb-6 flex items-center gap-3">
-              <div className="h-px flex-1 bg-current/10" />
-              <span className={`text-xs ${config.muted}`}>or sign up with email</span>
-              <div className="h-px flex-1 bg-current/10" />
             </div>
             
             <form className="grid gap-4" onSubmit={handleSubmit}>

@@ -7,45 +7,44 @@ import { SITE_CONFIG } from "@/lib/site-config";
 import { Users, Bookmark, Building2, Target, Heart, Zap, ArrowRight, Quote } from "lucide-react";
 
 const highlights = [
-  { label: "Creators onboarded", value: "12k+", icon: Users },
-  { label: "Bookmarks shared", value: "180k", icon: Bookmark },
-  { label: "Listings published", value: "8.6k", icon: Building2 },
+  { label: "Active members", value: "12k+", icon: Users },
+  { label: "Published entries", value: "180k", icon: Bookmark },
+  { label: "Updated pages", value: "8.6k", icon: Building2 },
 ];
 
 const values = [
-  { title: "Curated by people", description: "We believe trusted recommendations beat endless feeds.", icon: Heart },
-  { title: "Designed for focus", description: "Clear, calm UI helps you find the next best resource fast.", icon: Target },
-  { title: "Built to share", description: "Collections make collaboration and knowledge flow effortless.", icon: Zap },
+  { title: "Clarity first", description: "Each section stays readable and intentionally structured.", icon: Heart },
+  { title: "Low-friction flow", description: "Navigation paths are short and consistent across views.", icon: Target },
+  { title: "Connected context", description: "Every surface links into related material when needed.", icon: Zap },
 ];
 
 const milestones = [
-  { year: "2023", title: "Platform Launch", description: "Started with a simple mission: make local discovery easier." },
-  { year: "2024", title: "Community Growth", description: "Reached 10k+ active creators publishing on the platform." },
-  { year: "2025", title: "Feature Expansion", description: "Added classifieds, listings, and bookmarking tools." },
+  { year: "2023", title: "Initial launch", description: "The first public version of the website went live." },
+  { year: "2024", title: "Content expansion", description: "More sections were added to improve navigation and discovery." },
+  { year: "2025", title: "Experience refresh", description: "Layout, readability, and browsing flow were refined." },
 ];
 
 const testimonials = [
-  { quote: "Finally, a platform that understands how local businesses actually want to be discovered.", author: "Sarah Chen", role: "Small Business Owner" },
-  { quote: "The cleanest interface I've used for organizing and sharing resources with my team.", author: "Marcus Webb", role: "Product Designer" },
+  { quote: "Everything is easier to scan than most platforms I use.", author: "A. Patel", role: "Contributor" },
+  { quote: "The structure feels intentional and easy to return to.", author: "M. Reed", role: "Member" },
 ];
 
 export default function AboutPage() {
   return (
     <PageShell
       title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is a modern platform for creators, communities, and curated business discovery.`}
+      description={`${SITE_CONFIG.name} is a content-focused website designed for clear browsing and easy discovery.`}
       actions={
         <Button asChild>
           <Link href="/contact">Contact Us</Link>
         </Button>
       }
     >
-      {/* Hero Stats Section */}
       <div className="mb-12 rounded-3xl bg-gradient-to-br from-[#2a1f1a] to-[#3d2e2a] p-8 text-[#f3e4c9] sm:p-12">
         <div className="text-center">
           <Badge className="mb-4 border-[#a98b76]/30 bg-[#a98b76]/10 text-[#f3e4c9]">Our Impact</Badge>
           <h2 className="mx-auto max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-            Building a community of creators and discoverers
+            Building a clearer digital experience
           </h2>
         </div>
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -59,20 +58,18 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Mission & Values */}
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="space-y-6">
           <Badge variant="secondary">Our Story</Badge>
           <h2 className="font-display text-3xl font-semibold tracking-tight">
-            A single home for knowledge, discovery, and community.
+            One place with clear sections and simple discovery.
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            {SITE_CONFIG.name} brings together publishing, listings, and social bookmarking so teams can move faster
-            and keep their best resources close.
+            {SITE_CONFIG.name} brings key updates, useful pages, and contextual information together in one streamlined browsing experience.
           </p>
           <Button variant="outline" asChild className="group">
             <Link href="/contact">
-              Work with us
+              Get in touch
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
@@ -94,7 +91,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Timeline */}
       <div className="mt-16">
         <div className="mb-8 text-center">
           <Badge variant="secondary">Our Journey</Badge>
@@ -121,11 +117,10 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* Testimonials */}
       <div className="mt-16">
         <div className="mb-8 text-center">
           <Badge variant="secondary">What People Say</Badge>
-          <h2 className="mt-3 font-display text-2xl font-semibold">Trusted by the community</h2>
+          <h2 className="mt-3 font-display text-2xl font-semibold">Trusted by our community</h2>
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {testimonials.map((t) => (
@@ -147,7 +142,6 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-
-          </PageShell>
+    </PageShell>
   );
 }

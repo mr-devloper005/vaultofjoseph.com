@@ -58,13 +58,11 @@ export function DirectoryTaskDetailPage({
   const price = asStringOrNumber(content.price)
   const sellerName = asString(content.author) || post.authorName?.trim() || 'Seller'
   const sellerType = asString(content.sellerType) || 'Individual'
-  const referenceId = post.id
   const postedAt = post.publishedAt || post.createdAt || ''
   const postedLabel = postedAt
     ? new Date(postedAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })
     : ''
   const highlights = Array.isArray(content.highlights) ? content.highlights.filter((item): item is string => typeof item === 'string') : []
-  const listingUrl = `${SITE_CONFIG.baseUrl.replace(/\/$/, '')}${taskRoute}/${post.slug}`
   const descriptionHtml = formatRichHtml(description, 'Details coming soon.')
   const sellerInitials = sellerName
     .split(' ')
@@ -140,31 +138,6 @@ export function DirectoryTaskDetailPage({
                 ) : null}
               </div>
 
-              <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-                <h2 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">More details</h2>
-                <dl className="mt-4 grid gap-4 text-sm text-slate-700 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-                    <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Reference</dt>
-                    <dd className="mt-1 break-all font-medium text-slate-900">{referenceId}</dd>
-                  </div>
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-                    <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Listing URL</dt>
-                    <dd className="mt-1 break-all font-medium text-slate-900">{listingUrl}</dd>
-                  </div>
-                  {website ? (
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-                      <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Website</dt>
-                      <dd className="mt-1 break-all font-medium text-slate-900">{website}</dd>
-                    </div>
-                  ) : null}
-                  {phone ? (
-                    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-                      <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Phone</dt>
-                      <dd className="mt-1 break-all font-medium text-slate-900">{phone}</dd>
-                    </div>
-                  ) : null}
-                </dl>
-              </div>
             </div>
 
             <aside className="space-y-6">

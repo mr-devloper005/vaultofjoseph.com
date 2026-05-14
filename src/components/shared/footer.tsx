@@ -67,7 +67,7 @@ export function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6 lg:flex-row lg:items-start lg:justify-between lg:px-8">
           <div className="max-w-md">
             <Link href="/" className="inline-flex items-center gap-3">
-              <span className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl border border-[#f3e4c9]/15 bg-[rgba(61,46,38,0.55)] p-1">
+              <span className="flex h-14 w-14 items-center justify-center overflow-hidden">
                 <img src="/favicon.png?v=20260401" alt="" width="56" height="56" className="h-full w-full object-contain" />
               </span>
               <span>
@@ -80,6 +80,9 @@ export function Footer() {
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <Link href="/about" className="text-[#e8d8bc] hover:text-[#f3e4c9]">About</Link>
             <Link href="/contact" className="text-[#e8d8bc] hover:text-[#f3e4c9]">Contact</Link>
+            <Link href="/help" className="text-[#e8d8bc] hover:text-[#f3e4c9]">Help Center</Link>
+            <Link href="/privacy" className="text-[#e8d8bc] hover:text-[#f3e4c9]">Privacy Policy</Link>
+            <Link href="/terms" className="text-[#e8d8bc] hover:text-[#f3e4c9]">Terms & Conditions</Link>
           </div>
         </div>
         <div className="border-t border-[#f3e4c9]/10 py-4 text-center text-xs text-[#bfa28c]">
@@ -96,7 +99,7 @@ export function Footer() {
           <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr_1fr]">
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-7">
               <div className="flex items-center gap-3">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/12 bg-white/8 p-1">
+                <div className="flex h-14 w-14 items-center justify-center overflow-hidden">
                   <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="56" height="56" className="h-full w-full object-contain" />
                 </div>
                 <div>
@@ -188,7 +191,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_0.8fr]">
           <div>
             <Link href="/" className="flex items-center gap-3">
-              <div className="h-14 w-14 overflow-hidden rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+              <div className="h-14 w-14 overflow-hidden">
                 <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="56" height="56" className="h-full w-full object-contain" />
               </div>
               <div>

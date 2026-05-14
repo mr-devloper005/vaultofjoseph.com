@@ -860,13 +860,13 @@ export const mockApiEndpoints: ApiEndpoint[] = [
 export const mockFaqs: FAQItem[] = [
   {
     id: 'faq-1',
-    question: 'How do I submit a bookmark?',
-    answer: 'Open Social Bookmarks and choose Submit Bookmark to add your link.'
+    question: 'How do I publish a new entry?',
+    answer: 'Open the create flow and complete the required fields to publish.'
   },
   {
     id: 'faq-2',
-    question: 'Can I create private collections?',
-    answer: 'Yes. Set your collection to private when creating it.'
+    question: 'Can I keep a section private?',
+    answer: 'Yes. Enable private visibility while creating or editing the item.'
   },
   {
     id: 'faq-3',

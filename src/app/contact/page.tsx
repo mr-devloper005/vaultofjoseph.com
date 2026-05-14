@@ -7,9 +7,9 @@ import { NavbarShell } from '@/components/shared/navbar-shell';
 const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Vaultofjoseph';
 
 const contactHighlights = [
-  { icon: Mail, title: 'Direct response', copy: 'Your message is saved securely and routed to the right team.' },
-  { icon: MessageSquareText, title: 'Clear details', copy: 'Share your requirement, question, or collaboration idea in one place.' },
-  { icon: ShieldCheck, title: 'Reliable follow-up', copy: 'We keep the request record so every conversation stays traceable.' },
+  { icon: Mail, title: 'Direct response', copy: 'Your request is routed to the relevant internal queue.' },
+  { icon: MessageSquareText, title: 'General assistance', copy: 'Share questions, feedback, or process issues in one place.' },
+  { icon: ShieldCheck, title: 'Reliable follow-up', copy: 'Each conversation is recorded so updates remain traceable.' },
 ];
 
 export default function ContactPage() {
@@ -25,10 +25,10 @@ export default function ContactPage() {
             <div>
               <p className="text-sm font-black uppercase tracking-[0.35em] text-stone-500">Contact</p>
               <h1 className="mt-5 max-w-3xl text-5xl font-black leading-[0.95] tracking-[-0.06em] text-stone-950 md:text-7xl">
-                Let&apos;s talk about your next move.
+                Contact the support team.
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-700">
-                Use this form to reach {siteName}. Your request will be recorded and shared with the support team for follow-up.
+                Use this form to reach {siteName}. We will route your request to the right team and follow up.
               </p>
 
               <div className="mt-8 grid gap-4">
