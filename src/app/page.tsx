@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Bookmark, Building2, FileText, Image as ImageIcon, LayoutGrid, MapPin, ShieldCheck, Tag, User } from 'lucide-react'
+import { ArrowRight, Bookmark, Building2, FileText, Image as ImageIcon, LayoutGrid, MapPin, Tag, User } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
@@ -72,73 +72,6 @@ function getPostMeta(post?: SitePost | null) {
   }
 }
 
-/** Demo ads for empty feed — swap for live posts when the connector returns data. */
-const FEATURED_PLACEHOLDER_ADS = [
-  {
-    slug: '2019-honda-civic-lx-river-district',
-    category: 'For sale',
-    title: '2019 Honda Civic LX',
-    price: '$14,200 OBO',
-    location: 'River District · 12 mi',
-    excerpt: 'Clean title, full service history. Weekday evenings or Sat AM for test drives.',
-    image: '/placeholder.svg?height=720&width=960',
-  },
-  {
-    slug: 'solid-oak-dining-table-6-chairs',
-    category: 'Furniture',
-    title: 'Solid oak dining table + 6 chairs',
-    price: '$680',
-    location: 'Pickup near Old Town',
-    excerpt: 'Minor surface wear; legs disassemble for moving. Cash or Venmo on pickup.',
-    image: '/placeholder.svg?height=720&width=960',
-  },
-  {
-    slug: 'weekend-childcare-references-on-request',
-    category: 'Services',
-    title: 'Weekend childcare — references on request',
-    price: 'From $22/hr',
-    location: 'Eastside / flexible',
-    excerpt: 'CPR certified, 6+ years experience. First meeting always in a public place.',
-    image: '/placeholder.svg?height=720&width=960',
-  },
-] as const
-
-function PlaceholderFeaturedAdCard({
-  ad,
-}: {
-  ad: (typeof FEATURED_PLACEHOLDER_ADS)[number]
-}) {
-  return (
-    <Link
-      href={`/classifieds/${ad.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[rgba(42,31,26,0.08)] bg-white shadow-[0_18px_44px_rgba(42,31,26,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_52px_rgba(42,31,26,0.12)]"
-    >
-      <div className="relative aspect-[16/11] overflow-hidden bg-[#ede2dc]">
-        <ContentImage src={ad.image} alt={ad.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-        <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
-          <span className="inline-flex items-center gap-1 rounded-full bg-[#2a1f1a] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#f3e4c9]">
-            <Tag className="h-3.5 w-3.5" />
-            {ad.category}
-          </span>
-          <span className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#2a1f1a]">Featured</span>
-        </div>
-      </div>
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="line-clamp-2 text-xl font-semibold leading-snug text-[#2a1f1a]">{ad.title}</h3>
-        </div>
-        <p className="mt-2 text-sm font-semibold text-[#a98b76]">{ad.price}</p>
-        <p className="mt-2 line-clamp-2 text-sm leading-7 text-[#5c4a42]">{ad.excerpt}</p>
-        <p className="mt-4 flex items-center gap-1.5 text-xs text-[#5c4a42]">
-          <MapPin className="h-3.5 w-3.5 shrink-0 text-[#a98b76]" />
-          {ad.location}
-        </p>
-        <span className="mt-auto pt-5 text-sm font-semibold text-[#a98b76]">View listing →</span>
-      </div>
-    </Link>
-  )
-}
-
 function getEditorialTone() {
   return {
     shell: 'bg-[#fbf6ee] text-[#241711]',
@@ -179,13 +112,11 @@ function getCurationTone() {
 }
 
 function DirectoryHome({
-  primaryTask,
   enabledTasks,
   listingPosts,
   classifiedPosts,
   profilePosts,
 }: {
-  primaryTask?: EnabledTask
   enabledTasks: EnabledTask[]
   listingPosts: SitePost[]
   classifiedPosts: SitePost[]
@@ -195,7 +126,7 @@ function DirectoryHome({
   const featuredTaskKey: TaskKey = classifiedPosts.length ? 'classified' : 'listing'
 
   return (
-    <main className="text-[#2a1f1a]">
+    <main className="text-[#2a1f1a]" suppressHydrationWarning>
       <section className="relative overflow-hidden bg-[#2a1f1a] text-[#f3e4c9]">
         <div
           aria-hidden
@@ -248,15 +179,19 @@ function DirectoryHome({
       <section className="border-t border-[rgba(232,216,188,0.55)] bg-[linear-gradient(180deg,#fdfaf6_0%,#f7efe4_100%)] py-14 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border-b border-[rgba(42,31,26,0.08)] pb-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#a98b76]">Featured picks</p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#2a1f1a]">Latest on the board</h2>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#a98b76]">Highlightd picks</p>
+            <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#2a1f1a]">Latest in focus</h2>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featuredPosts.length
-              ? featuredPosts.map((post) => (
-                  <TaskPostCard key={post.id} post={post} href={getTaskHref(featuredTaskKey, post.slug)} taskKey={featuredTaskKey} />
-                ))
-              : FEATURED_PLACEHOLDER_ADS.map((ad) => <PlaceholderFeaturedAdCard key={ad.title} ad={ad} />)}
+            {featuredPosts.length ? (
+              featuredPosts.map((post) => (
+                <TaskPostCard key={post.id} post={post} href={getTaskHref(featuredTaskKey, post.slug)} taskKey={featuredTaskKey} />
+              ))
+            ) : (
+              <div className="col-span-full rounded-2xl border border-dashed border-[rgba(42,31,26,0.2)] p-10 text-center text-[#6e5547]">
+                No matching entries yet.
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -279,16 +214,6 @@ function DirectoryHome({
             </div>
           </div>
           <div className="grid gap-4">
-            <div className="rounded-2xl border border-[#f3e4c9]/12 bg-[#1a1411]/5 p-6">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#babf94]">Primary lane</p>
-                  <p className="mt-2 font-display text-2xl font-semibold">{primaryTask?.label || 'Classifieds'}</p>
-                </div>
-                <ShieldCheck className="h-7 w-7 text-[#babf94]" />
-              </div>
-              <p className="mt-4 text-sm leading-7 text-[#e8d8bc]">{primaryTask?.description}</p>
-            </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {(profilePosts.length ? profilePosts : classifiedPosts).slice(0, 4).map((post) => {
                 const meta = getPostMeta(post)
@@ -301,7 +226,7 @@ function DirectoryHome({
                     <div className="p-4">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#babf94]">{meta.category || taskKey}</p>
                       <h3 className="mt-2 line-clamp-2 font-display text-lg font-semibold text-[#f3e4c9]">{post.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-xs leading-6 text-[#cfc0b4]">{post.summary || 'Open the post for full details and contact paths.'}</p>
+                      <p className="mt-2 line-clamp-2 text-xs leading-6 text-[#cfc0b4]">{post.summary || 'Open the entry for full details.'}</p>
                     </div>
                   </Link>
                 )
@@ -326,31 +251,31 @@ function EditorialHome({ primaryTask, articlePosts, supportTasks }: { primaryTas
           <div>
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
               <FileText className="h-3.5 w-3.5" />
-              Reading-first publication
+              Editorial surface
             </span>
             <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Essays, analysis, and slower reading designed like a publication, not a dashboard.
+              Extended notes and layered context in a slower reading rhythm.
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={primaryTask?.route || '/articles'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Start reading
+                Open section
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/about" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                About the publication
+                Learn more
               </Link>
             </div>
           </div>
 
           <aside className={`rounded-[2rem] p-6 ${tone.panel}`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Inside this issue</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Inside this view</p>
             <div className="mt-5 space-y-5">
               {side.map((post) => (
                 <Link key={post.id} href={`/articles/${post.slug}`} className="block border-b border-black/10 pb-5 last:border-b-0 last:pb-0">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] opacity-60">Feature</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] opacity-60">Highlight</p>
                   <h3 className="mt-2 text-xl font-semibold">{post.title}</h3>
-                  <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Long-form perspective with a calmer reading rhythm.'}</p>
+                  <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Extended context with a calmer reading rhythm.'}</p>
                 </Link>
               ))}
             </div>
@@ -364,11 +289,11 @@ function EditorialHome({ primaryTask, articlePosts, supportTasks }: { primaryTas
                 <ContentImage src={getPostImage(lead)} alt={lead.title} fill className="object-cover" />
               </div>
               <div className="p-8 lg:p-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Lead story</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Lead entry</p>
                 <h2 className="mt-4 text-4xl font-semibold tracking-[-0.04em]">{lead.title}</h2>
-                <p className={`mt-4 text-sm leading-8 ${tone.muted}`}>{lead.summary || 'A more deliberate lead story surface with room for a proper narrative setup.'}</p>
+                <p className={`mt-4 text-sm leading-8 ${tone.muted}`}>{lead.summary || 'A deliberate lead surface with room for fuller context.'}</p>
                 <Link href={`/articles/${lead.slug}`} className={`mt-8 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                  Read article
+                  Open entry
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -401,19 +326,19 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
           <div>
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
               <ImageIcon className="h-3.5 w-3.5" />
-              Visual publishing system
+              Visual surface
             </span>
             <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Image-led discovery with creator profiles and a more gallery-like browsing rhythm.
+              Image-led discovery with profile context and a gallery-like browsing rhythm.
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={primaryTask?.route || '/images'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open gallery
+                Open visual stream
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Meet creators
+                Open profiles
               </Link>
             </div>
           </div>
@@ -435,8 +360,8 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Visual notes</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Larger media surfaces, fewer boxes, stronger pacing.</h2>
-            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>This product avoids business-directory density and publication framing. The homepage behaves more like a visual board, with profile surfaces and imagery leading the experience.</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Larger media surfaces and quieter pacing.</h2>
+            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>This view uses a visual-first structure with lighter metadata and profile-linked context.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {creators.map((post) => (
@@ -445,7 +370,7 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
                   <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Creator profile and visual identity surface.'}</p>
+                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{post.summary || 'Visual profile card with linked context.'}</p>
               </Link>
             ))}
           </div>
@@ -467,19 +392,19 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
           <div>
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
               <Bookmark className="h-3.5 w-3.5" />
-              Curated collections
+              Collection surface
             </span>
             <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Save, organize, and revisit resources through shelves, boards, and curated collections.
+              Save, organize, and revisit grouped references across linked surfaces.
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={primaryTask?.route || '/sbm'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open collections
+                Open collection stream
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Explore curators
+                Open profiles
               </Link>
             </div>
           </div>
@@ -489,7 +414,7 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
               <Link key={post.id} href={getTaskHref(resolveTaskKey(post.task, 'sbm'), post.slug)} className={`rounded-[1.8rem] p-6 ${tone.panel}`}>
                 <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Collection</p>
                 <h3 className="mt-3 text-2xl font-semibold">{post.title}</h3>
-                <p className={`mt-3 text-sm leading-8 ${tone.muted}`}>{post.summary || 'A calmer bookmark surface with room for context and grouping.'}</p>
+                <p className={`mt-3 text-sm leading-8 ${tone.muted}`}>{post.summary || 'A calmer grouped surface with room for context.'}</p>
               </Link>
             ))}
           </div>
@@ -498,8 +423,8 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
         <div className="mt-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Why this feels different</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">More like saved boards and reading shelves than a generic post feed.</h2>
-            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>The structure is calmer, the cards are less noisy, and the page encourages collecting and returning instead of forcing everything into a fast-scrolling list.</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">More like structured boards than a generic feed.</h2>
+            <p className={`mt-4 max-w-2xl text-sm leading-8 ${tone.muted}`}>The structure is calmer, cards are less noisy, and revisit flow is prioritized over constant scroll.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {people.map((post) => (
@@ -508,7 +433,7 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
                   <ContentImage src={getPostImage(post)} alt={post.title} fill className="object-cover" />
                 </div>
                 <h3 className="mt-4 text-lg font-semibold">{post.title}</h3>
-                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>Curator profile, saved resources, and collection notes.</p>
+                <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>Profile context and grouped reference notes.</p>
               </Link>
             ))}
           </div>
@@ -572,7 +497,6 @@ export default async function HomePage() {
       <SchemaJsonLd data={schemaData} />
       {productKind === 'directory' ? (
         <DirectoryHome
-          primaryTask={primaryTask}
           enabledTasks={enabledTasks}
           listingPosts={listingPosts}
           classifiedPosts={classifiedPosts}
@@ -592,3 +516,7 @@ export default async function HomePage() {
     </div>
   )
 }
+
+
+
+

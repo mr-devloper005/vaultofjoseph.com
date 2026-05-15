@@ -2,84 +2,82 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Premium local classifieds',
+    tagline: 'A structured digital space',
   },
   footer: {
-    tagline: 'Premium local classifieds',
+    tagline: 'A structured digital space',
   },
   hero: {
-    eyebrow: 'Local ads, offers, and listings—laid out so you see the hook before the fine print.',
-    title: ['Buy, sell, hire, and rent—', 'without the noise.'],
+    eyebrow: 'Signals, entries, and references arranged for quick scanning.',
+    title: ['Navigate focused spaces -', 'without extra noise.'],
     description:
-      'Each ad is built to scan: what it is, where it applies, and how to respond—then you drill into listings or profiles only when you want more.',
+      'Each entry highlights only key points up front, with deeper detail available when needed.',
     primaryCta: {
-      label: 'Browse classifieds',
+      label: 'Explore entries',
       href: '/classifieds',
     },
     secondaryCta: {
-      label: 'Search ads',
+      label: 'Search everything',
       href: '/search',
     },
-    searchPlaceholder: 'Search ads, listings, articles, and more',
-    focusLabel: 'Category',
-    featureCardBadge: 'active board',
-    featureCardTitle: 'Fresh posts keep the board honest and current.',
-    featureCardDescription:
-      'New classifieds and listings surface with clear categories so you can skim with confidence.',
+    searchPlaceholder: 'Search entries, profiles, and updates',
+    focusLabel: 'Focus',
+    featureCardBadge: 'live stream',
+    featureCardTitle: 'Fresh updates keep the experience current.',
+    featureCardDescription: 'New items appear in clear groups so browsing stays simple.',
     featureHighlights: [
       {
-        title: 'Offer line first',
-        body: 'Titles, category, and the ask stay visible so every post reads like a real ad—not a buried story.',
+        title: 'Priority details first',
+        body: 'Core points stay visible first so each card is immediately readable.',
       },
       {
-        title: 'Price & terms visible',
-        body: 'When sellers include numbers or deadlines, they stay near the top so you compare offers without reopening posts.',
+        title: 'Consistent structure',
+        body: 'Information follows a stable pattern so comparison is quick.',
       },
       {
-        title: 'One search, every ad type',
-        body: 'Classified blurbs, full listings, and articles all answer the same query—fewer dead ends when you are hunting for something specific.',
+        title: 'Unified discovery',
+        body: 'Multiple content types answer the same search flow.',
       },
     ],
   },
   home: {
     metadata: {
-      title: 'Local classifieds and trusted listings',
+      title: 'Structured entries and curated surfaces',
       description:
-        'Discover local classifieds, services, and offers on Vaultofjoseph—structured for fast scanning and clear next steps.',
-      openGraphTitle: 'Local classifieds and trusted listings',
-      openGraphDescription:
-        'Browse classifieds and business listings in one premium board experience.',
-      keywords: ['classifieds', 'local ads', 'listings', 'services', 'marketplace', 'Vaultofjoseph'],
+        'Explore a structured set of entries, profiles, and updates designed for fast discovery.',
+      openGraphTitle: 'Structured entries and curated surfaces',
+      openGraphDescription: 'A refined multi-surface experience for browsing and discovery.',
+      keywords: ['entries', 'profiles', 'discovery', 'updates', 'surfaces', 'Vaultofjoseph'],
     },
-    introBadge: 'How it works',
-    introTitle: 'One board for offers, services, and supporting resources.',
+    introBadge: 'Overview',
+    introTitle: 'One interface connecting multiple content surfaces.',
     introParagraphs: [
-      'Classifieds lead the experience: short, scannable posts with categories that make sense for real local commerce.',
-      'Business listings sit alongside as a steadier lane for verified services, hours, and contact paths.',
-      'Articles, images, bookmarks, and profiles stay available when you need deeper context—without crowding the main lanes.',
+      'Short-form entries lead the default flow for quick scanning.',
+      'Structured detail surfaces sit alongside for deeper context.',
+      'Long-form and media sections are available without crowding the primary view.',
     ],
-    sideBadge: 'At a glance',
+    sideBadge: 'Snapshot',
     sidePoints: [
-      'Classified-first discovery with premium typography and spacing.',
-      'Listings as the secondary lane for structured business surfaces.',
-      'Search stays global so every post type remains reachable in one query.',
-      'Light motion and CSS-first polish for fast loads.',
+      'Clear grouping across all enabled sections.',
+      'Secondary surfaces for deeper context.',
+      'Global search across every surface.',
+      'Fast and lightweight interface behavior.',
     ],
     primaryLink: {
-      label: 'Open classifieds',
+      label: 'Explore entries',
       href: '/classifieds',
     },
     secondaryLink: {
-      label: 'Browse listings',
+      label: 'Open secondary stream',
       href: '/listings',
     },
   },
   cta: {
-    badge: 'Ready when you are',
-    title: 'Post an ad or claim a listing surface in minutes.',
-    description: 'Join the board with a straightforward flow—built for clarity, not clutter.',
+    badge: 'Continue',
+    title: 'Create a new entry or connect your profile surface in minutes.',
+    description: 'A direct flow with minimal friction and clear steps.',
     primaryCta: {
-      label: 'Browse classifieds',
+      label: 'Open stream',
       href: '/classifieds',
     },
     secondaryCta: {
@@ -88,37 +86,37 @@ export const siteContent = {
     },
   },
   taskSectionHeading: 'Latest {label}',
-  taskSectionDescriptionSuffix: 'Newest posts in this section.',
+  taskSectionDescriptionSuffix: 'Newest items in this section.',
 } as const
 
 export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'social'>, { title: string; description: string }> = {
   article: {
-    title: 'Articles & updates',
-    description: 'Editorial notes and guides that pair with the classifieds board.',
+    title: 'Long-form',
+    description: 'Extended notes and editorial context.',
   },
   listing: {
-    title: 'Business listings',
-    description: 'Structured listings for services, shops, and professionals.',
+    title: 'Structured entries',
+    description: 'Detail-focused cards with consistent fields.',
   },
   classified: {
-    title: 'Classifieds',
-    description: 'Offers, jobs, housing, and local notices in a marketplace rhythm.',
+    title: 'Explore entries',
+    description: 'Fast-moving short-form entry feed.',
   },
   image: {
-    title: 'Visual gallery',
-    description: 'Image-led posts and media surfaces from the community.',
+    title: 'Visual stream',
+    description: 'Image-led cards and media content.',
   },
   profile: {
     title: 'Profiles',
-    description: 'Public profiles behind listings, ads, and creative work.',
+    description: 'Identity and contributor surfaces.',
   },
   sbm: {
-    title: 'Bookmarks & shelves',
-    description: 'Curated links and saved resources in a research-friendly layout.',
+    title: 'Collections',
+    description: 'Saved references and grouped resources.',
   },
   pdf: {
     title: 'Documents',
-    description: 'Downloadable PDFs and reference files.',
+    description: 'Downloadable files and references.',
   },
 }
 
@@ -127,127 +125,124 @@ export const taskIntroCopy: Record<
   { title: string; paragraphs: string[]; links: { label: string; href: string }[] }
 > = {
   listing: {
-    title: 'Listings built for trust and comparison',
+    title: 'Structured surface',
     paragraphs: [
-      'Each listing is framed like a storefront card: location, category, and proof points stay visible so you can compare quickly.',
-      'Use this lane when you want steadier business detail than a short classified line allows.',
-      'Filters stay lightweight—pick a category, scan, then jump into a profile or article when you need more.',
+      'This section prioritizes orderly cards and stable detail blocks.',
+      'Use it when you want a quieter comparison flow.',
+      'Filtering stays lightweight for faster movement.',
     ],
     links: [
-      { label: 'Classifieds', href: '/classifieds' },
-      { label: 'Articles', href: '/articles' },
+      { label: 'Explore entries', href: '/classifieds' },
+      { label: 'Long-form', href: '/articles' },
       { label: 'Profiles', href: '/profile' },
     ],
   },
   article: {
-    title: 'Editorial desk for context and craft',
+    title: 'Editorial surface',
     paragraphs: [
-      'Longer reads live here with room for narrative, data, and visuals—separate from the fast classified skim.',
-      'Typography favors comfortable line length and clear hierarchy so guides and stories feel intentional.',
-      'Jump back into offers or listings anytime; the board logic stays the same underneath.',
+      'Longer writing and context live here.',
+      'Typography and spacing are optimized for reading pace.',
+      'You can return to quicker streams at any time.',
     ],
     links: [
-      { label: 'Listings', href: '/listings' },
-      { label: 'Classifieds', href: '/classifieds' },
-      { label: 'PDF library', href: '/pdf' },
+      { label: 'Structured entries', href: '/listings' },
+      { label: 'Explore entries', href: '/classifieds' },
+      { label: 'Documents', href: '/pdf' },
     ],
   },
   classified: {
-    title: 'The main board for timely local posts',
+    title: 'Explore entries',
     paragraphs: [
-      'Classifieds are tuned for urgency: price cues, categories, and short copy that respects busy readers.',
-      'Pair them with listings when you want a fuller business story, or browse profiles to see who is behind the post.',
-      'Everything stays searchable from one global search—no dead ends.',
+      'This stream favors concise cards and faster update rhythm.',
+      'Quick summaries appear before deeper detail.',
+      'Global search remains available throughout.',
     ],
     links: [
-      { label: 'Browse latest classifieds', href: '/classifieds' },
-      { label: 'Post your ad', href: '/register' },
-      { label: 'Search all ads', href: '/search' },
+      { label: 'See entries', href: '/classifieds' },
+      { label: 'Create entry', href: '/register' },
+      { label: 'Search all', href: '/search' },
     ],
   },
   image: {
-    title: 'Gallery lane for visual-first posts',
+    title: 'Visual stream',
     paragraphs: [
-      'When imagery carries the message, this section opens with larger frames and calmer metadata.',
-      'It is intentionally different from the classified grid—more studio wall, less spreadsheet.',
-      'Use it to preview work, spaces, or products before you read the longer story.',
+      'This section emphasizes media-first browsing.',
+      'Cards are larger and metadata is quieter.',
+      'Use it for quick visual scanning before deeper reads.',
     ],
     links: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'Listings', href: '/listings' },
-      { label: 'Classifieds', href: '/classifieds' },
+      { label: 'Long-form', href: '/articles' },
+      { label: 'Structured entries', href: '/listings' },
+      { label: 'Explore entries', href: '/classifieds' },
     ],
   },
   profile: {
-    title: 'People and brands behind the posts',
+    title: 'Identity surface',
     paragraphs: [
-      'Profiles anchor trust: who you are hiring, buying from, or meeting in person.',
-      'The layout keeps identity up front with softer supporting stats—different from listing grids.',
-      'Follow through to classifieds or listings when you want proof in the form of live offers.',
+      'Profiles provide context around contributors and entities.',
+      'Identity details remain clear and persistent.',
+      'Related entries are linked for continuity.',
     ],
     links: [
-      { label: 'Listings', href: '/listings' },
-      { label: 'Classifieds', href: '/classifieds' },
-      { label: 'Bookmarks', href: '/sbm' },
+      { label: 'Structured entries', href: '/listings' },
+      { label: 'Explore entries', href: '/classifieds' },
+      { label: 'Collections', href: '/sbm' },
     ],
   },
   sbm: {
-    title: 'Research shelves for saved links',
+    title: 'Collection surface',
     paragraphs: [
-      'Bookmarks favor density and order: collections read like a personal library, not a social feed.',
-      'Cards stay compact so you can scan dozens of references without losing context.',
-      'Great for tools, docs, and recurring sources that support your listings research.',
+      'Grouped links and references are organized for reuse.',
+      'Dense layouts improve scanning across many items.',
+      'Useful for recurring research and saved context.',
     ],
     links: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'PDFs', href: '/pdf' },
-      { label: 'Listings', href: '/listings' },
+      { label: 'Long-form', href: '/articles' },
+      { label: 'Documents', href: '/pdf' },
+      { label: 'Structured entries', href: '/listings' },
     ],
   },
   pdf: {
-    title: 'Documents and downloads',
+    title: 'Document surface',
     paragraphs: [
-      'PDFs sit in a paper-bright layout with crisp borders—built for forms, menus, and long reports.',
-      'This lane is intentionally quieter than classifieds so files feel archival, not promotional.',
-      'Pair downloads with articles or listings when you need supporting evidence.',
+      'Files are presented in a cleaner archival style.',
+      'The layout is quieter and less feed-oriented.',
+      'Related context is accessible through linked surfaces.',
     ],
     links: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'Listings', href: '/listings' },
+      { label: 'Long-form', href: '/articles' },
+      { label: 'Structured entries', href: '/listings' },
       { label: 'Profiles', href: '/profile' },
     ],
   },
   social: {
     title: 'Short updates',
     paragraphs: [
-      'Quick signals when you need a pulse check without opening a full article.',
-      'They stay lightweight so classifieds and listings keep the spotlight.',
+      'Brief updates for lightweight context signals.',
+      'Designed to complement, not dominate, core surfaces.',
     ],
     links: [
-      { label: 'Listings', href: '/listings' },
-      { label: 'Classifieds', href: '/classifieds' },
-      { label: 'Articles', href: '/articles' },
+      { label: 'Structured entries', href: '/listings' },
+      { label: 'Explore entries', href: '/classifieds' },
+      { label: 'Long-form', href: '/articles' },
     ],
   },
   comment: {
-    title: 'Comments',
-    paragraphs: [
-      'Responses stay tethered to articles so discussion never drifts far from the source.',
-    ],
+    title: 'Responses',
+    paragraphs: ['Discussion remains attached to source context.'],
     links: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'Classifieds', href: '/classifieds' },
+      { label: 'Long-form', href: '/articles' },
+      { label: 'Explore entries', href: '/classifieds' },
     ],
   },
   org: {
-    title: 'Organizations',
-    paragraphs: [
-      'Teams and brands get a structured surface that complements listings and classifieds.',
-    ],
+    title: 'Organization surface',
+    paragraphs: ['Structured entity pages with related linked context.'],
     links: [
-      { label: 'Listings', href: '/listings' },
-      { label: 'Articles', href: '/articles' },
-      { label: 'PDF library', href: '/pdf' },
+      { label: 'Structured entries', href: '/listings' },
+      { label: 'Long-form', href: '/articles' },
+      { label: 'Documents', href: '/pdf' },
     ],
   },
 }
+
