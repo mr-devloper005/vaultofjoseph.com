@@ -35,6 +35,7 @@ export default function ContactPage() {
   }
 
   const tone = getTone()
+  const siteName = SITE_CONFIG.name || SITE_CONFIG.title || SITE_CONFIG.domain || \"this site\"
   const contactEmail = getContactEmail()
   const lanes = [
     { icon: Building2, title: 'Business support', body: 'Add listings, verify details, and bring your business surface live quickly.' },
