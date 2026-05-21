@@ -1,4 +1,4 @@
-import { Building2, Mail, Phone, Sparkles, Clock, CheckCircle, MessageSquare, Twitter, Linkedin, Github, Send } from 'lucide-react'
+import { Building2, Mail, Phone, Sparkles, Clock, CheckCircle, MessageSquare, MessageSquareText, ShieldCheck, Twitter, Linkedin, Github, Send } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { SITE_CONFIG } from '@/lib/site-config'
@@ -11,6 +11,16 @@ function getContactEmail() {
   const domain = SITE_CONFIG.domain?.trim()
   if (domain) return `hello@${domain.replace(/^https?:\/\//, '').replace(/\/.*$/, '')}`
   return 'hello@example.com'
+}
+
+function getTone() {
+  return {
+    shell: "bg-stone-50 text-stone-950",
+    panel: "border border-stone-200 bg-white shadow-sm",
+    soft: "border border-stone-200 bg-stone-50",
+    muted: "text-stone-600",
+    action: "bg-stone-950 text-white hover:bg-stone-800",
+  }
 }
 
 const contactHighlights = [
