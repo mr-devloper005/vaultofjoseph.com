@@ -58,10 +58,6 @@ export function DirectoryTaskDetailPage({
   const price = asStringOrNumber(content.price)
   const sellerName = asString(content.author) || post.authorName?.trim() || 'Seller'
   const sellerType = asString(content.sellerType) || 'Individual'
-  const postedAt = post.publishedAt || post.createdAt || ''
-  const postedLabel = postedAt
-    ? new Date(postedAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })
-    : ''
   const highlights = Array.isArray(content.highlights) ? content.highlights.filter((item): item is string => typeof item === 'string') : []
   const descriptionHtml = formatRichHtml(description, 'Details coming soon.')
   const sellerInitials = sellerName
@@ -99,7 +95,6 @@ export function DirectoryTaskDetailPage({
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/85">{category || taskLabel}</p>
                 <h1 className="mt-2 truncate text-2xl font-semibold tracking-[-0.03em] sm:text-3xl">{post.title}</h1>
                 <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/85">
-                  {postedLabel ? <span>{postedLabel}</span> : null}
                   {location ? (
                     <span className="inline-flex items-center gap-1.5">
                       <MapPin className="h-3.5 w-3.5" />
